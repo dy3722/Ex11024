@@ -17,11 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
  * @author David Yusupov <dy3722@bs.amalnet.k12.il>
  * @version 1.0
  * @since 22/3/2026
- * Main Activity
+ * Add-Question Activity
  */
-public class MainActivity extends AppCompatActivity {
-
-    private Intent siCred, siSettings, siAddQuestion;
+public class AddQuestionActivity extends AppCompatActivity {
+    private Intent siCred, siSettings;
 
     /**
      * Initializes the activity and sets up the UI components.
@@ -35,11 +34,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add_question);
 
         siCred = new Intent(this,CreditsActivity.class);
         siSettings = new Intent(this,SettingsActivity.class);
-        siAddQuestion = new Intent(this, AddQuestionActivity.class);
     }
 
     /**
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This hook is called whenever an item in your options menu is selected.
      * <p>
-     * This implementation checks if the selected item is the "Credits" or "Setting" menu item
+     * This implementation checks if the selected item is the "Main" or "Credits" or "Setting" menu item
      * and, if so, starts the activity defined by the Intent 'si'.
      *
      * @param item The menu item that was selected.
@@ -70,19 +68,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menuCredits)
+        if (id == R.id.menuMain)
         {
+            finish();
+        }
+        else if (id == R.id.menuCredits)
+        {
+            finish();
             startActivity(siCred);
         }
         else if (id == R.id.menuSettings)
         {
+            finish();
             startActivity(siSettings);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void toAddQuestion(View view) {
-        startActivity(siAddQuestion);
+    public void toSave(View view) {
+        //...
+        finish();
     }
 }

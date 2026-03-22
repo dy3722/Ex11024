@@ -6,15 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".AddQuestionActivity">
 
-    <TextView
-        android:id="@+id/tvQuestion"
+    <EditText
+        android:id="@+id/etNewQuestion"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:ems="10"
         android:gravity="center"
-        android:text="[Here the question]"
+        android:hint="Enter new question"
+        android:inputType="textPostalAddress"
         android:textColor="#873DFF"
         android:textSize="25dp" />
 
@@ -24,23 +26,29 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnAns1"
+        <EditText
+            android:id="@+id/etNewAns1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="[ans1]"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter new ans1"
+            android:inputType="textPostalAddress"
             android:textColor="#4CAF50"
-            android:textSize="20dp" />
+            android:textSize="25dp" />
 
-        <Button
-            android:id="@+id/btnAns2"
+        <EditText
+            android:id="@+id/etNewAns2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="[ans2]"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter new ans2"
+            android:inputType="textPostalAddress"
             android:textColor="#2196F3"
-            android:textSize="20dp" />
+            android:textSize="25dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,52 +57,43 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnAns3"
+        <EditText
+            android:id="@+id/etNewAns3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="[ans3]"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter new ans3"
+            android:inputType="textPostalAddress"
             android:textColor="#DBA912"
-            android:textSize="20dp" />
+            android:textSize="25dp" />
 
-        <Button
-            android:id="@+id/btnAns4"
+        <EditText
+            android:id="@+id/etNewAns4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="[ans4]"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter new ans4"
+            android:inputType="textPostalAddress"
             android:textColor="#FF4D40"
-            android:textSize="20dp" />
+            android:textSize="25dp" />
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <TextView
-        android:id="@+id/tvInformation"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="[Here the information]"
-        android:textColor="#FF3B7E"
-        android:textSize="25dp" />
+        android:layout_weight="2" />
 
     <Button
-        android:id="@+id/btnAddQuestion"
+        android:id="@+id/btnSaveQuestion"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:onClick="toAddQuestion"
-        android:text="Add question"
-        android:textColor="#009688"
-        android:textSize="35dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="2"
+        android:onClick="toSave"
+        android:text="Save"
+        android:textColor="#5E00FF"
+        android:textSize="55dp" />
 </LinearLayout>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,17 +16,15 @@ import androidx.core.view.WindowInsetsCompat;
  * @author David Yusupov <dy3722@bs.amalnet.k12.il>
  * @version 1.0
  * @since 22/3/2026
- * Main Activity
+ * Credits Activity
  */
-public class MainActivity extends AppCompatActivity {
-
-    private Intent siCred, siSettings, siAddQuestion;
+public class CreditsActivity extends AppCompatActivity {
+    Intent siSettings;
 
     /**
-     * Initializes the activity and sets up the UI components.
+     * Initializes the Credits activity.
      * <p>
-     * This method sets the content view to activity_main, initializes the Intent for
-     * the credits screen, and links the layout and TextView variables to their XML IDs.
+     * This method sets the activity's layout to the credits screen
      *
      * @param savedInstanceState If the activity is being re-initialized after previously
      * being shut down then this Bundle contains the data it most recently supplied.
@@ -35,18 +32,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_credits);
 
-        siCred = new Intent(this,CreditsActivity.class);
         siSettings = new Intent(this,SettingsActivity.class);
-        siAddQuestion = new Intent(this, AddQuestionActivity.class);
     }
 
     /**
-     * Initialize the contents of the Activity's standard options menu.
+     * Initialize the contents of the Activity's standard options menu for the Credits screen.
      * <p>
-     * This method inflates the menu resource (R.menu.main) into the provided Menu
-     * object and adds the items to the action bar.
+     * This method inflates the menu resource (R.menu.main) and populates the menu
+     * for this activity, allowing users to access options from the credits page.
      *
      * @param menu The options menu in which you place your items.
      * @return You must return true for the menu to be displayed; if you return false it will not be shown.
@@ -58,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This hook is called whenever an item in your options menu is selected.
+     * Handles action bar item clicks for the Credits activity.
      * <p>
-     * This implementation checks if the selected item is the "Credits" or "Setting" menu item
-     * and, if so, starts the activity defined by the Intent 'si'.
+     * This method intercepts clicks on the menu items. If the "Main" or "Setting" menu item
+     * is selected, it triggers the Intent to navigate back to the MainActivity.
      *
      * @param item The menu item that was selected.
      * @return boolean Return false to allow normal menu processing to proceed,
@@ -70,19 +65,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menuCredits)
+        if (id == R.id.menuMain)
         {
-            startActivity(siCred);
+            finish();
         }
         else if (id == R.id.menuSettings)
         {
+            finish();
             startActivity(siSettings);
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void toAddQuestion(View view) {
-        startActivity(siAddQuestion);
     }
 }
