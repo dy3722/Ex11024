@@ -96,6 +96,15 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Saves the user's nickname to SharedPreferences.
+     * <p>
+     * This method retrieves the text entered in the nickname EditText and saves it
+     * into the "USER_INFO" SharedPreferences. It then finishes the activity to return
+     * to the previous screen.
+     *
+     * @param view The view that was clicked to trigger this method.
+     */
     public void toSave(View view) {
         nickName = etNickName.getText().toString();
         SharedPreferences userInfo = getSharedPreferences("USER_INFO", MODE_PRIVATE);
@@ -106,6 +115,15 @@ public class SettingsActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Displays an alert dialog to confirm resetting the best score.
+     * <p>
+     * This method opens a confirmation dialog. If the user clicks "Ok", it resets the
+     * "bestScore" value in the "USER_INFO" SharedPreferences to 0 and shows a Toast confirmation.
+     * If "No" is clicked, the dialog is dismissed without making changes.
+     *
+     * @param view The view that was clicked to trigger this method.
+     */
     public void toResetBest(View view) {
         adb = new AlertDialog.Builder(this);
 

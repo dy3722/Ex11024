@@ -108,6 +108,16 @@ public class AddQuestionActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Saves a new user-defined question to internal storage.
+     * <p>
+     * This method validates that all input fields (question and 4 answers) are not empty.
+     * If valid, it appends the new question and answers to the "new_question.txt" file in
+     * internal storage using a FileOutputStream and BufferedWriter. It then closes the activity.
+     * If any field is empty, it displays a warning message.
+     *
+     * @param view The view that was clicked to trigger this method.
+     */
     public void toSave(View view) {
         if (!etNewQuestion.getText().toString().isEmpty() && !etNewAns2.getText().toString().isEmpty() && !etNewAns3.getText().toString().isEmpty() && !etNewAns4.getText().toString().isEmpty() && !etNewAns1.getText().toString().isEmpty())
         {

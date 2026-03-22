@@ -91,31 +91,31 @@ public class MainActivity extends AppCompatActivity {
             btnAns1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (numOfQuestion <= 3) badAns(bR);
-                    else goodAns(userInfo,bR);
+                    if (numOfQuestion <= 3) badAns();
+                    else goodAns(userInfo);
                 }
             });
 
             btnAns2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    badAns(bR);
+                    badAns();
                 }
             });
 
             btnAns3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {    //correct
-                    if (numOfQuestion == 1 || numOfQuestion == 3) goodAns(userInfo,bR);
-                    else badAns(bR);
+                    if (numOfQuestion == 1 || numOfQuestion == 3) goodAns(userInfo);
+                    else badAns();
                 }
             });
 
             btnAns4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (numOfQuestion == 2) goodAns(userInfo,bR);
-                    else badAns(bR);
+                    if (numOfQuestion == 2) goodAns(userInfo);
+                    else badAns();
                 }
             });
 
@@ -129,6 +129,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when the activity is becoming visible to the user.
+     * <p>
+     * This method resets the game state, including the score and question index.
+     * It reloads the user's best score from SharedPreferences, restores the UI to its initial state,
+     * and prepares the question list by loading new custom questions and displaying the first one.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -148,6 +155,13 @@ public class MainActivity extends AppCompatActivity {
         putQuestion();
     }
 
+    /**
+     * Loads the default questions from a raw resource file.
+     * <p>
+     * This method reads the predefined questions and answers from the 'started_questions'
+     * raw file and adds them to the main question list. It uses an InputStreamReader and
+     * BufferedReader to process the text file line by line.
+     */
     private void addRaw()
     {
         try {
@@ -173,6 +187,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Loads user-added questions from internal storage.
+     * <p>
+     * This method reads custom questions previously saved by the user in the internal file
+     * (NEW_QUESTION). It appends these new questions to the existing question list,
+     * ensuring that the game includes both default and custom content.
+     */
     private void addNewQuestions()
     {
         ArrayList<String> newQuestionList = new ArrayList<>();
@@ -206,7 +227,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void goodAns(SharedPreferences userInfo, BufferedReader bR)
+    /**
+     * Handles the logic for when the user selects the correct answer.
+     * <p>
+     * This method increments the user's score. If the current score exceeds the saved
+     * best score, it updates the best score in SharedPreferences. It then provides visual
+     * feedback (green text), advances the question counter, and loads the next question.
+     *
+     * @param userInfo The SharedPreferences object used to store and retrieve the best score.
+     */
+    public void goodAns(SharedPreferences userInfo)
     {
         score++;
         if (score > bestScore)
@@ -226,13 +256,26 @@ public class MainActivity extends AppCompatActivity {
         putQuestion();
     }
 
-    public void badAns(BufferedReader bR)
+    /**
+     * Handles the logic for when the user selects an incorrect answer.
+     * <p>
+     * This method provides visual feedback for an incorrect answer by turning the
+     * information text red. It then advances the question counter and loads the next question.
+     */
+    public void badAns()
     {
         tvInformation.setTextColor(Color.RED);
         numOfQuestion++;
         putQuestion();
     }
 
+    /**
+     * Displays the next question and its corresponding answers on the screen.
+     * <p>
+     * This method checks if there are enough items left in the question list. If so, it populates
+     * the question TextView and the four answer buttons. If the list is exhausted, it hides the
+     * buttons and displays a "Quiz Finished!" message along with the final scores.
+     */
     public void putQuestion()
     {
         if (questionList == null || index + 3 >= questionList.size())
@@ -290,6 +333,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Navigates the user to the AddQuestionActivity.
+     * <p>
+     * This method is triggered by a button click and starts the activity where users
+     * can create and save their own custom questions to internal storage.
+     *
+     * @param view The view that was clicked to trigger this method.
+     */
     public void toAddQuestion(View view) {
         startActivity(siAddQuestion);
     }
