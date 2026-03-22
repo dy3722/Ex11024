@@ -1,13 +1,18 @@
 package com.example.ex11024;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,6 +27,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class SettingsActivity extends AppCompatActivity {
 
     private Intent siCred;
+    private EditText etNickName;
+    private String nickName;
+    private AlertDialog.Builder adb;
 
     /**
      * Initializes the activity and sets up the UI components.
@@ -38,6 +46,13 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         siCred = new Intent(this,CreditsActivity.class);
+
+        etNickName = findViewById(R.id.etNickName);
+
+        SharedPreferences userInfo = getSharedPreferences("USER_INFO", MODE_PRIVATE);
+        nickName = userInfo.getString("nickName", "NoName");
+
+        etNickName.setText(nickName);
     }
 
     /**
@@ -82,7 +97,40 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void toSave(View view) {
-        //...
+        nickName = etNickName.getText().toString();
+        SharedPreferences userInfo = getSharedPreferences("USER_INFO", MODE_PRIVATE);
+        SharedPreferences.Editor editor = userInfo.edit();
+        editor.putString("nickName", nickName);
+        editor.commit();
+
         finish();
+    }
+
+    public void toResetBest(View view) {
+        adb = new AlertDialog.Builder(this);
+
+        adb.setCancelable(false);
+        adb.setTitle("Are you sure?");
+        adb.setMessage("It's will reset your best score.");
+        adb.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                SharedPreferences userInfo = getSharedPreferences("USER_INFO", MODE_PRIVATE);
+                SharedPreferences.Editor editor = userInfo.edit();
+                editor.putInt("bestScore", 0);
+
+                editor.commit();
+                Toast.makeText(SettingsActivity.this, "Reset!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        adb.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        AlertDialog ad = adb.create();
+        ad.show();
     }
 }

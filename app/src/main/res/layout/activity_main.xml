@@ -19,6 +19,7 @@
         android:textSize="25dp" />
 
     <LinearLayout
+        android:id="@+id/llBTN1and2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -44,6 +45,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/llBTN3and4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -80,7 +82,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="[Here the information]"
-        android:textColor="#FF3B7E"
+        android:textColor="#03A9F4"
         android:textSize="25dp" />
 
     <Button

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -12,6 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 /**
  * @author David Yusupov <dy3722@bs.amalnet.k12.il>
@@ -21,6 +33,9 @@ import androidx.core.view.WindowInsetsCompat;
  */
 public class AddQuestionActivity extends AppCompatActivity {
     private Intent siCred, siSettings;
+    private EditText etNewQuestion, etNewAns1, etNewAns2, etNewAns3, etNewAns4;
+    private TextView tvIsEmpty;
+    private final String NEW_QUESTION = "new_question.txt";
 
     /**
      * Initializes the activity and sets up the UI components.
@@ -38,6 +53,13 @@ public class AddQuestionActivity extends AppCompatActivity {
 
         siCred = new Intent(this,CreditsActivity.class);
         siSettings = new Intent(this,SettingsActivity.class);
+
+        etNewQuestion = findViewById(R.id.etNewQuestion);
+        etNewAns1 = findViewById(R.id.etNewAns1);
+        etNewAns2 = findViewById(R.id.etNewAns2);
+        etNewAns3 = findViewById(R.id.etNewAns3);
+        etNewAns4 = findViewById(R.id.etNewAns4);
+        tvIsEmpty = findViewById(R.id.tvIsEmpty);
     }
 
     /**
@@ -87,7 +109,30 @@ public class AddQuestionActivity extends AppCompatActivity {
     }
 
     public void toSave(View view) {
-        //...
-        finish();
+        if (!etNewQuestion.getText().toString().isEmpty() && !etNewAns2.getText().toString().isEmpty() && !etNewAns3.getText().toString().isEmpty() && !etNewAns4.getText().toString().isEmpty() && !etNewAns1.getText().toString().isEmpty())
+        {
+            try
+            {
+                FileOutputStream fOS = openFileOutput(NEW_QUESTION, MODE_APPEND);
+                OutputStreamWriter oSW = new OutputStreamWriter(fOS);
+                BufferedWriter bW = new BufferedWriter(oSW);
+
+                bW.write(etNewQuestion.getText().toString() + "\n" + etNewAns1.getText().toString() + "\n" + etNewAns2.getText().toString() + "\n" + etNewAns3.getText().toString() + "\n" + etNewAns4.getText().toString() + "\n");
+
+                bW.close();
+                oSW.close();
+                fOS.close();
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+            tvIsEmpty.setVisibility(View.INVISIBLE);
+            finish();
+        }
+        else
+        {
+            tvIsEmpty.setVisibility(View.VISIBLE);
+        }
     }
 }
